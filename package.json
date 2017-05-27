@@ -8,17 +8,18 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack",
-    "start": "webpack-dev-server"
+    "build": "webpack --watch"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "webpack": "^2.6.1",
-    "webpack-dev-server": "^2.4.5"
+    "css-loader": "^0.28.3",
+    "style-loader": "^0.18.1",
+    "webpack": "^2.6.1"
   },
   "dependencies": {
+    "normalize.css": "^7.0.0",
     "pixi.js": "^4.5.2"
   }
 }
