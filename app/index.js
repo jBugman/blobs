@@ -20,9 +20,11 @@ const engine = Engine.create()
 engine.world.gravity.y = 0
 var bodies = []
 
-// engine.world.bounds = {min: {x: 0, y: 0}, max: {x: app.screen.width, y: app.screen.height}}
-// var wall1 = Bodies.rectangle(0, app.screen.height, app.screen.width, 10, {isStatic: true})
-// bodies.push(wall1)
+const wall1 = Bodies.rectangle(app.screen.width / 2, app.screen.height, app.screen.width, 10, {isStatic: true})
+const wall2 = Bodies.rectangle(app.screen.width / 2, -5, app.screen.width, 10, {isStatic: true})
+const wall3 = Bodies.rectangle(-5, app.screen.height / 2, 10, app.screen.height, {isStatic: true})
+const wall4 = Bodies.rectangle(app.screen.width, app.screen.height / 2, 10, app.screen.height, {isStatic: true})
+bodies.push(wall1, wall2, wall3, wall4)
 
 const player = new PIXI.Graphics()
 player.radius = 50
@@ -33,7 +35,6 @@ player.endFill()
 app.stage.addChild(player)
 player.interactive = true
 player.body = Bodies.circle(app.screen.width / 2, app.screen.height / 2, player.radius)
-player.body.friction = 0
 player.body.frictionAir = 0
 bodies.push(player.body)
 
