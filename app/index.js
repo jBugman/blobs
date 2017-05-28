@@ -3,38 +3,31 @@ import * as PIXI from 'pixi.js'
 import mousePosition from 'mouse-position'
 import Victor from 'victor'
 
-var type = 'WebGL'
-if (!PIXI.utils.isWebGLSupported()) {
-  type = 'canvas'
-}
-PIXI.utils.sayHello(type)
+const mouse = mousePosition()
 
-var mouse = mousePosition()
+const app = new PIXI.Application()
+app.renderer.backgroundColor = 0xffffff
+app.view.style.position = 'absolute'
+app.view.style.display = 'block'
+app.renderer.autoResize = true
+app.renderer.resize(window.innerWidth, window.innerHeight)
+document.body.appendChild(app.view)
 
-var renderer = PIXI.autoDetectRenderer(256, 256)
-document.body.appendChild(renderer.view)
-renderer.backgroundColor = 0xffffff
-renderer.view.style.position = 'absolute'
-renderer.view.style.display = 'block'
-renderer.autoResize = true
-renderer.resize(window.innerWidth, window.innerHeight)
+app.stage.interactive = true
+app.stage.hitArea = app.screen
 
-var stage = new PIXI.Container()
-stage.interactive = true
-stage.hitArea = new PIXI.Rectangle(0, 0, window.innerWidth, window.innerHeight)
-
-var player = new PIXI.Graphics()
+const player = new PIXI.Graphics()
 player.beginFill(0x429bf4)
 player.lineStyle(4, 0x2e6caa, 1)
 player.drawCircle(0, 0, 50)
 player.v = new Victor(0, 0)
 player.endFill()
 player.interactive = true
-player.position.x = window.innerWidth / 2
-player.position.y = window.innerHeight / 2
-stage.addChild(player)
+player.position.x = app.screen.width / 2
+player.position.y = app.screen.height / 2
+app.stage.addChild(player)
 
-stage.on('click', function (event) {
+app.stage.on('click', function (event) {
   if (event.target === player) {
     event.stopPropagation()
     return
@@ -49,7 +42,7 @@ function gameLoop () {
   player.x += player.v.x
   player.y += player.v.y
 
-  renderer.render(stage)
+  app.renderer.render(app.stage)
 }
 
 gameLoop()
